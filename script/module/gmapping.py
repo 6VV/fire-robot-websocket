@@ -4,13 +4,11 @@
 import sys
 try:
     sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
-except:
+except Exception:
     pass
 import asyncio
 import websockets
 import threading
-from cv2 import cv2
-import numpy
 from module import remote
 
 

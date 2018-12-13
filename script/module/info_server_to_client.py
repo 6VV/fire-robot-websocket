@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*-coding: utf-8 -*-
-
 '''
 服务器接收机器人数据并向客户端传输
 '''
@@ -48,13 +47,13 @@ class LocationController(Controller):
 
     def save_file(self, data):
         json_data = json.loads(data)
-        dir_path = '../file'
+        dir_path = '../file/location'
         if not os.path.exists(dir_path):
             os.mkdir(dir_path)
-        file_path = dir_path+'/'+json_data['date']+'.txt'
+        file_path = dir_path + '/' + json_data['date'] + '.txt'
 
         with open(file_path, 'a') as f:
-            f.write(json_data['time']+':')
+            f.write(json_data['time'] + ':')
             f.write(data)
             f.write('\n')
 
@@ -93,7 +92,8 @@ class InfoServerToClient(object):
                 if self.data is not None:
                     # TODO: send
                     if self.location_controller.is_ready(socket_id):
-                        await websocket.send(json.dumps(self.json_data['data']))
+                        await websocket.send(
+                            json.dumps(self.json_data['data']))
                 await asyncio.sleep(0.001)
 
         start_server = websockets.serve(send_data, '0.0.0.0', 5701)
