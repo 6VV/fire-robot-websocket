@@ -47,9 +47,12 @@ class FireBranchVideo(object):
 
     def start_server(self):
         async def send_data(websocket, path):
-            while True:
-                await websocket.send(self.image)
-                await asyncio.sleep(0.2)
+            try:
+                while True:
+                    await websocket.send(self.image)
+                    await asyncio.sleep(0.2)
+            except Exception:
+                pass
 
         start_server = websockets.serve(send_data, '0.0.0.0', 5679)
         asyncio.get_event_loop().run_until_complete(start_server)
